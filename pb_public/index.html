@@ -1,19 +1,249 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <title>CPSC 349 - Project 4</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/pb_public/output.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FavFlicks</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 
-<body>
-    <h1 class="text-3xl font-bold underline">
-	Hello world!
-    </h1>
-    <div id="root"></div>
+<body class="flex flex-col min-h-screen">
+    <!--{{!-- beginning of navbar --}}-->
+    <header>
+        <div class="bg-gray-900">
+            <div class="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+                <div class="relative flex items-center justify-between">
+                    <div class="flex items-center">
+                        <a href="/index.html"  class="inline-flex items-center mr-8" id="mainPage">
+                            <svg class="w-8 text-teal-accent-400 hover:stroke-blue-300" viewBox="0 0 24 24" stroke-linejoin="round"
+                                stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" stroke="white"
+                                fill="none">
+                                <rect class="hover:stroke-blue-300" x="3" y="1" width="7" height="12"></rect>
+                                <rect class="hover:stroke-blue-300" x="3" y="17" width="7" height="6"></rect>
+                                <rect class="hover:stroke-blue-300" x="14" y="1" width="7" height="6"></rect>
+                                <rect class="hover:stroke-blue-300" x="14" y="11" width="7" height="12"></rect>
+                            </svg>
+                            <span class="ml-2 text-xl font-bold tracking-wide text-gray-100  hover:text-blue-300">FavFlicks</span>
+                        </a>
+                        <ul class="flex items-center space-x-8 lg:flex bar-element">
+                            <li><a id="aboutbtn"
+                                class="block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-blue-300" aria-label="About us" title="About us">About
+                                    us</a></li>
+                        </ul>
+                    </div>
+                    <ul class="flex items-center space-x-8 lg:flex bar-element">
+                        <!--{{#if currentUser}}-->
+                        <li>
+                            <a class="group relative inline-block overflow-hidden border border-blue-300 px-8 py-3 focus:outline-none focus:ring"
+                                href="/app.html">
+                                <span
+                                    class="absolute inset-y-0 left-0 w-[2px] bg-blue-300 transition-all group-hover:w-full group-active:bg-indigo-500"></span>
+
+                                <span
+                                    class="relative text-sm font-medium text-blue-300 transition-colors group-hover:text-white">
+                                    Dashboard
+                                </span>
+                            </a>
+                        </li>
+                        <!-- Right -->
+
+                        <li><a class="group relative inline-block overflow-hidden border border-blue-300 px-11 py-3 focus:outline-none focus:ring">
+                                <span
+                                    class="absolute inset-y-0 right-0 w-[2px] bg-blue-300 transition-all group-hover:w-full group-active:bg-indigo-500"></span>
+
+                                <button type="button" id="toLogout"
+                                    class="relative text-sm font-medium text-blue-300 transition-colors group-hover:text-white">Logout
+                                </button>
+                            </a></li>
+                        <!--{{else}}-->
+                        <li><a class="group relative inline-block overflow-hidden border border-blue-300 px-8 py-3 focus:outline-none focus:ring"
+                                id="signupbtn">
+                                <span
+                                    class="absolute inset-y-0 left-0 w-[2px] bg-blue-300 transition-all group-hover:w-full group-active:bg-indigo-500"></span>
+
+                                <span
+                                    class="relative text-sm font-medium text-blue-300 transition-colors group-hover:text-white">
+                                    Sign up
+                                </span>
+                            </a></li>
+
+                        <!-- Right -->
+
+                        <li><a class="group relative inline-block overflow-hidden border border-blue-300 px-9 py-3 focus:outline-none focus:ring"
+                                id="loginbtn">
+                                <span
+                                    class="absolute inset-y-0 right-0 w-[2px] bg-blue-300 transition-all group-hover:w-full group-active:bg-indigo-500"></span>
+
+                                <span
+                                    class="relative text-sm font-medium text-blue-300 transition-colors group-hover:text-white">Log
+                                    in
+                                </span>
+                            </a></li>
+                        <!--{{/if}}-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="flex-grow" id="landing">
+        <h1 class="font-medium leading-tight text-5xl text-center mt-10 mb-2 text-grey-100 pt-16">Welcome to FavFlicks!</h1>
+
+        <section class="mb-20 text-gray-700">
+        <div class="text-center md:max-w-xl lg:max-w-3xl mx-auto">
+            <h3 class="text-3xl font-bold mb-6 text-gray-800">About our Website</h3>
+            <p class="mb-6 pb-2 md:mb-12 md:pb-0">
+            Here at FavFlicks you can create your archive of movies watched or build lists of your favorite cult classics plus other features you can discover once you sign up.
+            </p>
+        </div>
+        </section>
+    </main>
+
+    <main class="flex-grow" id="about" hidden>
+        <h1 class="mt-6 text-center text-3xl font-bold mb-2">About Us</h1>
+        <hr class="block border-gray-800 max-w-5xl mx-auto w-[98%] mb-6" />
+        <div class="px-4 max-w-4xl mx-auto flex flex-col gap-10">
+        <article>
+            <h3 class="about-heading">Our mission</h3>
+            <div class="flex flex-col gap-4">
+            <p>
+            Here at FavFlicks, we are passionate about all things cinema and wanted to 
+            help others keep track of all their favorite films! With this website, you 
+            can add different movie categories, each with their own description, and 
+            your favorite movies from each category. You can even add your personal 
+            rating of the film!
+            </p>
+            <p>
+                Our web application was built using 
+                <a class="about-link" href="https://remaketheweb.com/" target="_blank" rel="noreferrer noopener">
+                Remake
+                </a> for functionality / interactivity and 
+                <a class="about-link" href="https://tailwindcss.com/" target="_blank" rel="noreferrer noopener">
+                Tailwind CSS
+                </a> for styling!
+            </p>
+            </div>
+        </article>
+        <article>
+            <h3 class="about-heading">Team members</h3>
+            <div class="flex justify-around text-center">
+            <div>
+                <img src="../assets/images/clapperboard.png" class="about-img" alt="clapperboard">
+                <p>Edwin Peraza</p>
+            </div>
+            <div>
+                <img src="../assets/images/film-camera.svg" class="about-img" alt="camera">
+                <p>Ethan Safai</p>
+            </div>
+            <div>
+                <img src="../assets/images/film-strip.png" class="about-img" alt="film strip">
+                <p>Ethan Ton</p>
+            </div>
+            <div>
+                <img src="../assets/images/popcorn.svg" class="about-img" alt="popcorn">
+                <p>Jin Huang</p>
+            </div>
+            </div> 
+        </article>
+        </div>
+    </main>
+
+    <main class="flex-grow" id="login" hidden>
+        <div class="flex items-center justify-center h-full  my-40">
+            <div class="px-8 py-6 mt-4 text-left bg-grey-100 shadow-lg">
+                <h3 class="text-2xl font-bold text-center">Log in to your account</h3>
+                <form action="/user/login" method="post">
+                    <div class="mt-4">
+                        <div>
+                            <label class="block" for="username">Username</label>
+                                    <input type="text" name="username" placeholder="Username"
+                                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                        </div>
+                        <div class="mt-4">
+                            <label class="block">Password</label>
+                                    <input type="password" name="password" placeholder="Password"
+                                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <button type="submit" class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Login</button>
+                            <a href="/user/forgot" class="text-sm text-blue-600 hover:underline">Forgot password?</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <main class="flex-grow" id="forgot" hidden>
+        <div class="flex items-center justify-center h-full  my-40">
+            <div class="px-8 py-6 mt-4 text-left bg-grey-100 shadow-lg">
+                <h3 class="text-2xl font-bold text-center">Forgot your password?</h3>
+                <p class="mt-4">We will send a link to your associated email account</p>
+                <form action="/user/forgot" method="post">
+                    <div class="mt-4">
+                        <div class="">
+                            <label class="block font-bold" for="username">Username</label>
+                                    <input type="text" name="username" placeholder="Your Username"
+                                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                        </div>
+                        <div class="flex items-baseline justify-center">
+                            <button type="submit" class="px-6 py-2 mt-8 w-full text-white bg-blue-600 rounded-lg hover:bg-blue-900">Reset my password</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <main class="flex-grow" id="signup" hidden>
+        <div class="flex items-center justify-center h-full  my-40">
+            <div class="px-8 py-6 mt-4 text-left bg-grey-100 shadow-lg">
+                <h2 class="text-2xl font-bold text-center">Create Your Account Today!</h2>
+                <form id="signupForm">
+                    <div class="mt-4">
+                        <div class="mt-4">
+                            <label class="block">Username</label>
+                                    <input type="text" name="username" placeholder="Username" id="userIn"
+                                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                        </div>
+                        <div class="mt-4">
+                            <label class="block" for="email">Email</label>
+                                    <input type="email" name="email" placeholder="Email" id="emailIn"
+                                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                        </div>
+                        <div class="mt-4">
+                            <label class="block">Password</label>
+                                    <input type="password" name="password" placeholder="Password" id="passwordIn"
+                                        class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <button class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Sign up</button>
+                            
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-gray-400 text-center lg:text-left">
+        <p class=" text-gray-700 text-center p-4">
+            © 2022 Copyright: Group 12
+            <a class="inline-flex mx-8 items-center rounded border-2 border-[#171515] bg-[#171515] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-transparent hover:text-[#171515] focus:outline-none focus:ring active:opacity-75"
+                href="https://github.com/edwinperaza99/cpsc349-project2" target="_blank" rel="noreferrer noopener">
+                GitHub
+
+                <svg class="ml-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill-rule="evenodd"
+                        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </a>
+        </p>
+
+    </footer>
 </body>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script
       type="application/javascript"
@@ -22,5 +252,6 @@
       src="https://unpkg.com/pocketbase@0.8.3/dist/pocketbase.umd.js">
     </script>
     <script type="module" src="app.js"></script>
+    <script type="module" src="ui.js"></script>
 
 </html>
