@@ -199,25 +199,25 @@
         <div class="flex items-center justify-center h-full  my-40">
             <div class="px-8 py-6 mt-4 text-left bg-grey-100 shadow-lg">
                 <h2 class="text-2xl font-bold text-center">Create Your Account Today!</h2>
-                <form action="/user/signup" method="post">
+                <form id="signupForm">
                     <div class="mt-4">
                         <div class="mt-4">
                             <label class="block">Username</label>
-                                    <input type="text" name="username" placeholder="Username"
+                                    <input type="text" name="username" placeholder="Username" id="userIn"
                                         class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
                         </div>
                         <div class="mt-4">
                             <label class="block" for="email">Email</label>
-                                    <input type="email" name="email" placeholder="Email"
+                                    <input type="email" name="email" placeholder="Email" id="emailIn"
                                         class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
                         </div>
                         <div class="mt-4">
                             <label class="block">Password</label>
-                                    <input type="password" name="password" placeholder="Password"
+                                    <input type="password" name="password" placeholder="Password" id="passwordIn"
                                         class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600" required>
                         </div>
                         <div class="flex items-baseline justify-between">
-                            <button type="submit" class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Sign up</button>
+                            <button class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">Sign up</button>
                             
                         </div>
                     </div>

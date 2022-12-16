@@ -6,13 +6,38 @@ const pb = new PocketBase('http://127.0.0.1:8090')
 const authData = await pb.admins.authWithPassword(USERNAME, PASSWORD)
 console.log(authData)
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+if (document.querySelector('#signupForm')) {
+  document.querySelector('#signupForm').addEventListener('submit', async function() {
+    event.preventDefault()
+    let data = {
+      'username': document.getElementById('userIn').value,
+      'email': document.getElementById('emailIn').value,
+      'password': document.getElementById('passwordIn').value,
+      'passwordConfirm': document.getElementById('passwordIn').value
+    }
+    try {
+      const record = await pb.collection('users').create(data)
+    } catch (error) {
+      alert("Username and/or e-mail exist already.")
+      return
+    }
+    alert("Account created.")
+  })
+}
 
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)
+function checkRoot() {
+  if (document.getElementById('root')) {
+    const root = ReactDOM.createRoot(document.getElementById('root'))
+
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    )
+  }
+}
+
+checkRoot()
 
 function App () {
   return (
