@@ -1,8 +1,9 @@
 const USERNAME = "spencerprice@csu.fullerton.edu";
 const PASSWORD = "Project_04";
 const pb = new PocketBase("http://127.0.0.1:8090");
-let authData = await pb.admins.authWithPassword(USERNAME, PASSWORD);
+let authData = null;
 console.log(authData);
+console.log(pb.authStore.model.id);
 if (document.querySelector("#signupForm")) {
   document.querySelector("#signupForm").addEventListener("submit", async function() {
     event.preventDefault();
@@ -19,30 +20,36 @@ if (document.querySelector("#signupForm")) {
       return;
     }
     alert("Account created.");
-    authenticate(data.username, data.password, false);
+    authData = await authenticate(data.username, data.password, false);
+    console.log(authData);
+    console.log(pb.authStore.model.id);
   });
 }
 if (document.querySelector("#loginForm")) {
   document.querySelector("#loginForm").addEventListener("submit", async function() {
     event.preventDefault();
-    authenticate(document.getElementById("userLogin").value, document.getElementById("passwordLogin").value, true);
+    authData = await authenticate(document.getElementById("userLogin").value, document.getElementById("passwordLogin").value, true);
+    console.log(authData);
+    console.log(pb.authStore.model.id);
   });
 }
 async function authenticate(ident, pass, login) {
+  let authTmp = null;
   if (ident && pass) {
     pb.authStore.clear();
     try {
-      authData = await pb.collection("users").authWithPassword(ident, pass);
+      authTmp = await pb.collection("users").authWithPassword(ident, pass);
     } catch {
       if (login) {
         alert("Failed to log in.");
       }
-      return;
+      return null;
     }
     if (login) {
       alert("Successfully logged in.");
     }
   }
+  return authTmp;
 }
 function checkRoot() {
   if (document.getElementById("root")) {
