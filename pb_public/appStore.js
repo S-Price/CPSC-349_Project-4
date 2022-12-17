@@ -24,5 +24,5 @@ function storeSignup () {
 }
 
 function storeLogin () {
-    window,localStorage.savedPage = 'login'
+    window.localStorage.savedPage = 'login'
 }

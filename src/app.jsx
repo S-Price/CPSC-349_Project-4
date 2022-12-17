@@ -3,10 +3,16 @@ const PASSWORD = 'Project_04'
 
 const pb = new PocketBase('http://127.0.0.1:8090')
 
-let authData = await pb.admins.authWithPassword(USERNAME, PASSWORD)
-
-//let authData = null
+//let authData = await pb.admins.authWithPassword(USERNAME, PASSWORD)
+let authData = null
 console.log(authData)
+
+try {
+  console.log(pb.authStore.model.id)
+} catch {
+  console.log("No user loaded")
+}
+
 
 /* Eventlistener and function to create a new user */
 if (document.querySelector('#signupForm')) {
@@ -39,6 +45,17 @@ if (document.querySelector('#loginForm')) {
     authData = await authenticate(document.getElementById('userLogin').value, document.getElementById('passwordLogin').value, true)
     console.log(authData)
     console.log(pb.authStore.model.id)
+  })
+}
+
+if (document.querySelector('#toLogout')) {
+  document.querySelector('#toLogout').addEventListener("click", function () {
+    pb.authStore.clear()
+    if (!document.getElementById('root')) {
+      location.reload()
+    }
+    window.localStorage.savedPage = 'login'
+    return true
   })
 }
 
