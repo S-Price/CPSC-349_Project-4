@@ -70,9 +70,44 @@ checkRoot()
 
 function App () {
   return (
-    <div className='App'>
-      <h1>Good luck, Guys. Im counting on you.</h1>
-      <h1>Test Test</h1>
+    <div className="container mx-auto">
+      <h1 className="py-4 text-4xl font-bold text-gray-700 text-center">
+        Welcome back!
+      </h1>
+      <hr className="max-w-2xl mx-auto mb-4 bg-gray-800" />
+      <div object="">
+        <div className="flex justify-center">
+          <button className="flex items-center justify-center rounded border border-yellow-700 bg-yellow-200 font-bold px-12 py-3 text-yellow-700 hover:bg-yellow-700 hover:text-yellow-200 hover:border-yellow-200  focus:ring ">
+            New category
+          </button>
+        </div>
+        <article className="flex flex-col">
+          <div>
+            <div className="my-4 border-4 border-blue-300 rounded p-4 hover:border-blue-700">
+              <h3 className="text-2xl font-medium text-gray-900 title-font mb-2">
+                Category name:
+              </h3>
+              <p className="text-sm text-gray-500 pb-1" contentEditable>
+                Category description here!
+              </p>
+              <div array="" key="movies" sortable="">
+                <div>
+                  <h4 className="font-medium" contentEditable>Movie title</h4>
+                  <p className="text-sm text-gray-500 pb-1" contentEditable>
+                    Did you like the movie?
+                  </p>
+                </div>
+              </div>
+              <button
+                className="rounded border font-medium border-blue-900 bg-blue-900 px-4 py-2 text-white hover:bg-transparent hover:text-blue-900 hover:border-blue-900"
+                new:movie=""
+              >
+                Add movie
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
   )
 }
