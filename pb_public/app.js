@@ -2,11 +2,16 @@ const USERNAME = "spencerprice@csu.fullerton.edu";
 const PASSWORD = "Project_04";
 const pb = new PocketBase("http://127.0.0.1:8090");
 let authData = null;
-console.log(authData);
+const resultList = await pb.collection("user_movie_reviews").getList(1, 50, {
+  filter: 'user = "scwcct0u7b0d815"'
+});
+console.log(resultList);
 try {
   console.log(pb.authStore.model.id);
 } catch {
   console.log("No user loaded");
+  document.getElementById("dashLi").hidden = true;
+  document.getElementById("logoutLi").hidden = true;
 }
 if (document.querySelector("#signupForm")) {
   document.querySelector("#signupForm").addEventListener("submit", async function() {
@@ -27,7 +32,9 @@ if (document.querySelector("#signupForm")) {
     authData = await authenticate(data.username, data.password, false);
     console.log(authData);
     console.log(pb.authStore.model.id);
-    loadDefault(pb.authStore.model.id);
+    await loadDefault(pb.authStore.model.id);
+    window.localStorage.savedPage = "main";
+    location.reload();
   });
 }
 if (document.querySelector("#loginForm")) {
@@ -36,6 +43,8 @@ if (document.querySelector("#loginForm")) {
     authData = await authenticate(document.getElementById("userLogin").value, document.getElementById("passwordLogin").value, true);
     console.log(authData);
     console.log(pb.authStore.model.id);
+    window.localStorage.savedPage = "main";
+    location.reload();
   });
 }
 if (document.querySelector("#toLogout")) {
