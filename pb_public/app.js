@@ -1,9 +1,8 @@
 const USERNAME = "spencerprice@csu.fullerton.edu";
 const PASSWORD = "Project_04";
 const pb = new PocketBase("http://127.0.0.1:8090");
-let authData = null;
+let authData = await pb.admins.authWithPassword(USERNAME, PASSWORD);
 console.log(authData);
-console.log(pb.authStore.model.id);
 if (document.querySelector("#signupForm")) {
   document.querySelector("#signupForm").addEventListener("submit", async function() {
     event.preventDefault();
@@ -23,6 +22,7 @@ if (document.querySelector("#signupForm")) {
     authData = await authenticate(data.username, data.password, false);
     console.log(authData);
     console.log(pb.authStore.model.id);
+    loadDefault(pb.authStore.model.id);
   });
 }
 if (document.querySelector("#loginForm")) {
@@ -32,6 +32,19 @@ if (document.querySelector("#loginForm")) {
     console.log(authData);
     console.log(pb.authStore.model.id);
   });
+}
+async function loadDefault(id) {
+  const baseData = {
+    "catName": "Category Name",
+    "catDesc": "Category Description",
+    "title": "Movie Title",
+    "opinion": "What was your opinion of the movie?"
+  };
+  const loadData = {
+    "movie1": JSON.stringify(baseData),
+    "user": id
+  };
+  const defDat = await pb.collection("user_movie_reviews").create(loadData);
 }
 async function authenticate(ident, pass, login) {
   let authTmp = null;

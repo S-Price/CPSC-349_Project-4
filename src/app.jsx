@@ -3,13 +3,10 @@ const PASSWORD = 'Project_04'
 
 const pb = new PocketBase('http://127.0.0.1:8090')
 
-/*
 let authData = await pb.admins.authWithPassword(USERNAME, PASSWORD)
-*/
 
-let authData = null
+//let authData = null
 console.log(authData)
-console.log(pb.authStore.model.id)
 
 /* Eventlistener and function to create a new user */
 if (document.querySelector('#signupForm')) {
@@ -31,6 +28,7 @@ if (document.querySelector('#signupForm')) {
     authData = await authenticate(data.username, data.password, false)
     console.log(authData)
     console.log(pb.authStore.model.id)
+    loadDefault(pb.authStore.model.id)
   })
 }
 
@@ -42,6 +40,20 @@ if (document.querySelector('#loginForm')) {
     console.log(authData)
     console.log(pb.authStore.model.id)
   })
+}
+
+async function loadDefault(id) {
+  const baseData = {
+    "catName": "Category Name",
+    "catDesc": "Category Description",
+    "title": "Movie Title",
+    "opinion": "What was your opinion of the movie?"
+  }
+  const loadData = {
+    "movie1": JSON.stringify(baseData),
+    "user": id
+  }
+  const defDat = await pb.collection('user_movie_reviews').create(loadData)
 }
 
 /* Authenticates user for Login */
