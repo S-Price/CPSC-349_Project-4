@@ -6,12 +6,19 @@ const pb = new PocketBase('http://127.0.0.1:8090')
 //let authData = await pb.admins.authWithPassword(USERNAME, PASSWORD)
 let authData = null
 
-/*
-const resultList = await pb.collection('user_movie_reviews').getList(1, 50, {
-  filter: 'user = "scwcct0u7b0d815"',
-});
+let resultList = null
+if (checkID()) {
+  const loadedId = pb.authStore.model.id
+  let inString = 'user = '
+  inString = inString.concat('"', loadedId.toString(), '"')
+  console.log(inString)
+  resultList = await pb.collection('user_movie_reviews').getList(1, 50, {
+    filter: inString,
+  });
+}
+
 console.log(resultList)
-*/
+
 
 try {
   console.log(pb.authStore.model.id)
@@ -21,6 +28,14 @@ try {
   document.getElementById('logoutLi').hidden = true
 }
 
+function checkID() {
+  try {
+    pb.authStore.model.id
+  } catch {
+    return false
+  }
+  return true
+}
 
 /* Eventlistener and function to create a new user */
 if (document.querySelector('#signupForm')) {
