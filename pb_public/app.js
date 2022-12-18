@@ -2,12 +2,31 @@ const USERNAME = "spencerprice@csu.fullerton.edu";
 const PASSWORD = "Project_04";
 const pb = new PocketBase("http://127.0.0.1:8090");
 let authData = null;
+let resultList = null;
+if (checkID()) {
+  const loadedId = pb.authStore.model.id;
+  let inString = "user = ";
+  inString = inString.concat('"', loadedId.toString(), '"');
+  console.log(inString);
+  resultList = await pb.collection("user_movie_reviews").getList(1, 50, {
+    filter: inString
+  });
+}
+console.log(resultList);
 try {
   console.log(pb.authStore.model.id);
 } catch {
   console.log("No user loaded");
   document.getElementById("dashLi").hidden = true;
   document.getElementById("logoutLi").hidden = true;
+}
+function checkID() {
+  try {
+    pb.authStore.model.id;
+  } catch {
+    return false;
+  }
+  return true;
 }
 if (document.querySelector("#signupForm")) {
   document.querySelector("#signupForm").addEventListener("submit", async function() {
