@@ -19,8 +19,15 @@ if (checkID()) {
 
 let data = null
 
+
+
 if (resultList) {
-  data = resultList.items[0].movie1
+  try {
+    data = resultList.items[0].movie1
+  } catch {
+    pb.authStore.clear()
+  }
+  
 }
 
 console.log(resultList)
