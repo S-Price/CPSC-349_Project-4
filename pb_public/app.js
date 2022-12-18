@@ -2,10 +2,6 @@ const USERNAME = "spencerprice@csu.fullerton.edu";
 const PASSWORD = "Project_04";
 const pb = new PocketBase("http://127.0.0.1:8090");
 let authData = null;
-const resultList = await pb.collection("user_movie_reviews").getList(1, 50, {
-  filter: 'user = "scwcct0u7b0d815"'
-});
-console.log(resultList);
 try {
   console.log(pb.authStore.model.id);
 } catch {
