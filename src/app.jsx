@@ -12,7 +12,7 @@ if (checkID()) {
   let inString = 'user = '
   inString = inString.concat('"', loadedId.toString(), '"')
   console.log(inString)
-  resultList = await pb.collection('user_movie_reviews').getList(1, 50, {
+  resultList = await pb.collection('user_data').getList(1, 50, {
     filter: inString,
   });
 }
@@ -103,7 +103,7 @@ async function loadDefault(id) {
     "movie1": JSON.stringify(baseData),
     "user": id
   }
-  const defDat = await pb.collection('user_movie_reviews').create(loadData)
+  const defDat = await pb.collection('user_data').create(loadData)
 }
 
 /* Authenticates user for Login */
@@ -152,7 +152,7 @@ function App () {
       "movie1": JSON.stringify(data)
     }
     console.log(resultList.items[0].id)
-    const record = await pb.collection('user_movie_reviews').update(resultList.items[0].id, recordSub)
+    const record = await pb.collection('user_data').update(resultList.items[0].id, recordSub)
   }
   return (
     <div className="container mx-auto">
